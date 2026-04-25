@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Encomiendas</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #24566b;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .menu a {
+            display: inline-block;
+            background: #24566b;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #24566b;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema de Encomiendas</h1>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+        <div class="card"><h2>{{ total_clientes }}</h2><p>Clientes</p></div>
+        <div class="card"><h2>{{ total_rutas }}</h2><p>Rutas</p></div>
+        <div class="card"><h2>{{ total_empleados }}</h2><p>Empleados</p></div>
+        <div class="card"><h2>{{ total_encomiendas }}</h2><p>Encomiendas</p></div>
+        <div class="card"><h2>{{ total_historial }}</h2><p>Historial</p></div>
+    </div>
+
+    <div class="menu">
+        <a href="/admin/">Ir al Admin</a>
+        <a href="/admin/clientes/cliente/">Clientes</a>
+        <a href="/admin/rutas/ruta/">Rutas</a>
+        <a href="/admin/envios/encomienda/">Encomiendas</a>
+    </div>
+
+    <h2>Últimas Encomiendas</h2>
+
+    {% if encomiendas %}
+    <table>
+        <tr>
+            <th>Código</th>
+            <th>Remitente</th>
+            <th>Destino</th>
+            <th>Estado</th>
+        </tr>
+
+        {% for e in encomiendas %}
+        <tr>
+            <td>{{ e.codigo }}</td>
+            <td>{{ e.remitente }}</td>
+            <td>{{ e.ruta }}</td>
+            <td>{{ e.get_estado_display }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No hay encomiendas registradas</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
